@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DataConverterImplTest {
+    private static final String INVALID_LINE = "b,banana";
+    private static final String VALID_LINE = "b,banana,20";
     private static DataConverter dataConverterImpl;
-    private final String invalidLine = "b,banana";
-    private final String validLine = "b,banana,20";
 
     public DataConverterImplTest() {
         dataConverterImpl = new DataConverterImpl();
@@ -24,14 +24,14 @@ class DataConverterImplTest {
 
     @Test
     void convertToTransactions_reportNotValid_notOk() {
-        assertThrows(IllegalArgumentException.class, () -> dataConverterImpl.convertToTransactions(List.of(invalidLine)));
+        assertThrows(IllegalArgumentException.class, () -> dataConverterImpl.convertToTransactions(List.of(INVALID_LINE)));
     }
 
     @Test
     void convertToTransactions_fruitTransactionCreated_ok() {
-        String[] parts = validLine.split(",");
+        String[] parts = VALID_LINE.split(",");
         FruitTransaction expectedTransaction = FruitTransaction.of(FruitTransaction.Operation.fromCode(parts[0]), parts[1],Integer.parseInt(parts[2]));
-        List<FruitTransaction> actual = dataConverterImpl.convertToTransactions(List.of(validLine));
+        List<FruitTransaction> actual = dataConverterImpl.convertToTransactions(List.of(VALID_LINE));
         assertEquals(List.of(expectedTransaction), actual);
     }
 }
