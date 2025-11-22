@@ -1,5 +1,7 @@
 package core.basesyntax.model;
 
+import java.util.Objects;
+
 public final class FruitTransaction {
     private final Operation operation;
     private final String fruit;
@@ -54,5 +56,27 @@ public final class FruitTransaction {
             }
             throw new IllegalArgumentException("Unknown operation code: " + code);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass().equals(FruitTransaction.class)) {
+            FruitTransaction fruitTransaction = (FruitTransaction) obj;
+            return Objects.equals(operation, fruitTransaction.getOperation())
+                    && fruit.equals(fruitTransaction.getFruit())
+                    && quantity == fruitTransaction.getQuantity();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(operation, fruit, quantity);
     }
 }
