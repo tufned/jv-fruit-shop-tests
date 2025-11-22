@@ -1,21 +1,20 @@
 package core.basesyntax.service.file.impl;
 
-import core.basesyntax.service.file.ShopFileWriter;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import core.basesyntax.service.file.ShopFileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class ShopFileWriterImplTest {
     private static final String CONTENT = "b,banana,20";
     private final ShopFileWriter shopFileWriter;
     @TempDir
-    Path tempDir;
+    private Path tempDir;
 
     public ShopFileWriterImplTest() {
         shopFileWriter = new ShopFileWriterImpl();

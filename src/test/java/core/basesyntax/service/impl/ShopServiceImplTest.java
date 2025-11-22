@@ -1,18 +1,17 @@
 package core.basesyntax.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import core.basesyntax.db.ShopStorage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.OperationStrategy;
 import core.basesyntax.service.ShopService;
 import core.basesyntax.strategy.OperationHandler;
-import org.junit.jupiter.api.Test;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 class ShopServiceImplTest {
     private ShopService shopServiceImpl;
@@ -26,7 +25,7 @@ class ShopServiceImplTest {
     @Test
     void process_executesHandlerLogic_ok() {
         class HandlerSpy implements OperationHandler {
-            boolean wasCalled = false;
+            private boolean wasCalled = false;
 
             @Override
             public void handle(FruitTransaction transaction, ShopStorage storage) {
@@ -43,7 +42,8 @@ class ShopServiceImplTest {
 
         ShopService shopServiceImpl = new ShopServiceImpl(operationStrategy, null);
 
-        FruitTransaction transaction = FruitTransaction.of(FruitTransaction.Operation.BALANCE, "apple", 10);
+        FruitTransaction transaction = FruitTransaction.of(
+                FruitTransaction.Operation.BALANCE, "apple", 10);
         shopServiceImpl.process(List.of(transaction));
 
         assertTrue(handlerSpy.wasCalled, "The strategy should have invoked the handler");

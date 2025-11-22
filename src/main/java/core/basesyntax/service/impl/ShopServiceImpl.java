@@ -4,7 +4,6 @@ import core.basesyntax.db.ShopStorage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.OperationStrategy;
 import core.basesyntax.service.ShopService;
-
 import java.util.List;
 
 public class ShopServiceImpl implements ShopService {

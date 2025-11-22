@@ -1,16 +1,15 @@
 package core.basesyntax.service.file.impl;
 
-import core.basesyntax.service.file.ShopFileReader;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import core.basesyntax.service.file.ShopFileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 class ShopFileReaderImplTest {
     private static final String CONTENT_HEADER = "type,fruit,quantity";
@@ -18,7 +17,7 @@ class ShopFileReaderImplTest {
     private static final String CONTENT_LINE_2 = "s,apple,10";
     private final ShopFileReader shopFileReader;
     @TempDir
-    Path tempDir;
+    private Path tempDir;
 
     public ShopFileReaderImplTest() {
         shopFileReader = new ShopFileReaderImpl();
