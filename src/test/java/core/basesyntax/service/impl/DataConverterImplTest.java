@@ -6,14 +6,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.DataConverter;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class DataConverterImplTest {
     private static final String INVALID_LINE = "b,banana";
     private static final String VALID_LINE = "b,banana,20";
-    private static DataConverter dataConverterImpl;
+    private DataConverter dataConverterImpl;
 
-    public DataConverterImplTest() {
+    @BeforeEach
+    void beforeEach() {
         dataConverterImpl = new DataConverterImpl();
     }
 

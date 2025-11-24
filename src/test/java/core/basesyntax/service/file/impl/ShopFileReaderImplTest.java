@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -15,16 +16,17 @@ class ShopFileReaderImplTest {
     private static final String CONTENT_HEADER = "type,fruit,quantity";
     private static final String CONTENT_LINE_1 = "b,banana,20";
     private static final String CONTENT_LINE_2 = "s,apple,10";
-    private final ShopFileReader shopFileReader;
+    private ShopFileReader shopFileReader;
     @TempDir
     private Path tempDir;
 
-    public ShopFileReaderImplTest() {
+    @BeforeEach
+    void beforeEach() {
         shopFileReader = new ShopFileReaderImpl();
     }
 
     @Test
-    void readCsv_readsFileAndRemovesHeader_ok() throws IOException {
+    void readCsv_readsFileSuccessfully_ok() throws IOException {
         Path inputFilePath = tempDir.resolve("testInput.csv");
         Files.write(inputFilePath, List.of(CONTENT_HEADER, CONTENT_LINE_1, CONTENT_LINE_2));
 
@@ -38,5 +40,13 @@ class ShopFileReaderImplTest {
     @Test
     void readCsv_invalidPath_notOk() {
         assertThrows(RuntimeException.class, () -> shopFileReader.readCsv("qwe"));
+    }
+
+    @Test
+    void readCsv_emptyFile_ok() throws IOException {
+        Path inputFilePath = tempDir.resolve("testInput.csv");
+        Files.write(inputFilePath, List.of());
+        List<String> actualLines = shopFileReader.readCsv(inputFilePath.toString());
+        assertEquals(List.of(), actualLines);
     }
 }

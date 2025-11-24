@@ -8,15 +8,16 @@ import core.basesyntax.service.OperationStrategy;
 import core.basesyntax.strategy.OperationHandler;
 import java.util.HashMap;
 import java.util.Map;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class OperationStrategyImplTest {
-    private final OperationStrategy operationStrategy;
+    private OperationStrategy operationStrategy;
 
-    public OperationStrategyImplTest() {
+    @BeforeEach
+    void beforeEach() {
         Map<FruitTransaction.Operation, OperationHandler> operationHandlers = new HashMap<>();
         operationHandlers.put(FruitTransaction.Operation.BALANCE, new MockedHandler());
-
         operationStrategy = new OperationStrategyImpl(operationHandlers);
     }
 

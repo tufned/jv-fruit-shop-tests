@@ -7,16 +7,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class ShopFileWriterImplTest {
     private static final String CONTENT = "b,banana,20";
-    private final ShopFileWriter shopFileWriter;
+    private ShopFileWriter shopFileWriter;
     @TempDir
     private Path tempDir;
 
-    public ShopFileWriterImplTest() {
+    @BeforeEach
+    void beforeEach() {
         shopFileWriter = new ShopFileWriterImpl();
     }
 
